@@ -108,4 +108,9 @@
         {{- template "_internal/google_analytics.html" . -}}
     {{- end -}}
     {{- end -}}
+    <link crossorigin="anonymous" rel="preload" as="fetch" href="/index.json">
+    <!-- 从网站资源中获取 js/fastsearch.js 文件，通过 js.Build 方法编译该文件，并传入参数 fuseOpts，其值来自于网站配置的 site.Params.fuseOpts，再对编译结果进行压缩（Minify） -->
+    {{- $fusejs := resources.Get "js/fuse.basic.min.js" }}
+    {{- $search := (slice $fusejs) | resources.Concat "assets/js/search.js" }}
+    <script defer crossorigin="anonymous" src="{{ $search.RelPermalink }}" integrity="{{ $search.Data.Integrity }}"></script>
 </head>
