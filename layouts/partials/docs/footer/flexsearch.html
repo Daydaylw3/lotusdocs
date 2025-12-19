@@ -79,6 +79,10 @@
         const nextIndex= index + 1 < focusableSuggestions.length ? index + 1 : index;
         focusableSuggestions[nextIndex].focus();
     }
+    else if (e.key === "ArrowRight") {
+        let ae = document.activeElement;
+        ae.click();
+    }
 
     }
 
