@@ -1,0 +1,52 @@
+<!--
+使用方法:
+video id="<全文章唯一>" src="/files/...." type="<类型, 有mp4等等>" width="<宽度, 默认640, height默认为auto>" playbackRate="<倍速, 默认1>"
+-->
+{{- $width := (.Get "width") }}
+{{- $height := (.Get "height") }}
+{{- $playbackRate := (.Get "playbackRate" | default `1` )}}
+
+<video id="{{.Get `id`}}"
+     width="{{ $width | default `640` }}" 
+     height="{{ $height | default `auto` }}"
+     controls controlsList="nodownload">
+    <source data-src="{{.Get `src`}}" type="video/{{.Get `type`}}">
+    您的浏览器不支持 HTML5 视频标签。
+</video>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let video = document.getElementById('{{.Get `id`}}');
+
+        let lazyLoadVideo = (video) => {
+            let sources = video.querySelectorAll('source');
+            sources.forEach(source => {
+                source.src = source.getAttribute('data-src');
+            });
+            video.load();
+            video.playbackRate = {{ $playbackRate }}; // 使用变量设置默认播放倍速
+        };
+
+        if ('IntersectionObserver' in window) {
+            let observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            let videoObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        lazyLoadVideo(video);
+                        videoObserver.unobserve(video);
+                    }
+                });
+            }, observerOptions);
+
+            videoObserver.observe(video);
+        } else {
+            // Fallback for browsers that do not support IntersectionObserver
+            lazyLoadVideo(video);
+        }
+    });
+</script>

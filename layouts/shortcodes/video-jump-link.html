@@ -1,0 +1,23 @@
+<!--
+使用方法:
+video-jump-link videoID="<跳链的视频ID>" time="跳到第多少秒" sequence="<seqno, 同一个视频多个跳链需要不同>"
+00:30
+video-jump-link
+-->
+{{ $videoID := .Get "videoID" }}
+{{ $jumpTime := .Get "time" }}
+{{ $linkSequence := .Get "sequence" }} <!-- 添加序号标识 -->
+
+<a href="#" id="jump-link-{{ $videoID }}-{{ $linkSequence }}" style="color: #1b96c3;">{{ .Inner | markdownify }}</a>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let jumpLink = document.getElementById('jump-link-{{ $videoID }}-{{ $linkSequence }}');
+        jumpLink.addEventListener('click', function(event) {
+            event.preventDefault();  // 防止默认的链接点击行为
+            let video = document.getElementById('{{ $videoID }}');
+            video.currentTime = {{ $jumpTime }};  // 跳转到指定时间
+            video.play();  // 开始播放视频
+        });
+    });
+</script>
