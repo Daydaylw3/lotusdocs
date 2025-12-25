@@ -1,0 +1,21 @@
+{{ $iconMap := dict
+    "csv" "/attachment/csv-icon.png"
+    "doc" "/attachment/docx-icon.png"
+    "docx" "/attachment/docx-icon.png"
+    "exe" "/attachment/exe-icon.png"
+    "pdf" "/attachment/pdf-icon.png"
+    "ppt" "/attachment/ppt-icon.png"
+    "txt" "/attachment/txt-icon.png"
+    "excel" "/attachment/xls-icon.png"
+    "xls" "/attachment/xls-icon.png"
+    "zip" "/attachment/zip-icon.png"
+}}
+<!-- 下载网址: https://www.flaticon.com/ -->
+{{ $fileType := .Get 0 }}
+{{ $icon := index $iconMap $fileType }}
+<div style="display: inline-block; text-align: center;">
+    <a href="{{ .Get 1 }}"
+       style="display:block; margin: 0 auto; width:60px; height:60px; background-image:url('{{ $icon }}'); background-size: cover; text-indent: -9999px; box-shadow: 0 0;">
+    </a>
+    <span class="{{ .Site.Params.theme }}" style="display:block; font-size:0.5em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ .Get 2 }}</span>
+</div>
