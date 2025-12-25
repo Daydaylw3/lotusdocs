@@ -1,0 +1,10 @@
+{{- $width := (.Get "width") }}
+{{- $height := (.Get "height") }}
+<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid={{.Get `bvid`}}&autoplay=0" 
+    border="0"
+    framespacing="0" 
+    allowfullscreen
+    width="{{ $width | default `640` }}"
+    height="{{ $height | default `360` }}"
+    sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts">
+</iframe>
