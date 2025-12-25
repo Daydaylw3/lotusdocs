@@ -1,0 +1,39 @@
+{{- $group := .Get "group" | default "models" -}}
+<div class="gallery gallery-group-{{ $group }}">
+    {{ .Inner }}
+</div>
+{{ if .Get "import" | default true }}
+<link rel="stylesheet" href="/css/gallery.min.css">
+<script src="/js/lightbox-plus-jquery.min.js"></script>
+<script>
+    lightbox.option({
+        'resizeDuration': {{ .Get "duration" | default 50 }},
+        'fadeDuration': {{ .Get "duration" | default 50 }},
+        'imageFadeDuration': {{ .Get "duration" | default 50 }},
+        'wrapAround': false
+    })
+</script>
+{{ end }}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const gallery = document.querySelector('.gallery-group-{{ $group }}');
+        const firstImage = gallery.querySelector('a img');
+
+        firstImage.addEventListener('load', function () {
+            const firstImageWidth = firstImage.clientWidth;
+            const firstImageHeight = firstImage.clientHeight;
+
+            console.log(firstImageWidth, firstImageHeight)
+
+            const allImages = gallery.querySelectorAll('a img');
+            allImages.forEach(function (img) {
+                img.style.width = firstImageWidth + 'px';
+                img.style.height = firstImageHeight + 'px';
+            })
+        })
+
+        if (firstImage.complete) {
+            firstImage.dispatchEvent(new Event('load'))
+        }
+    });
+</script>

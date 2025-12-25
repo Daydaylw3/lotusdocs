@@ -47,6 +47,11 @@
             <script type="text/javascript" src="{{ $js.Permalink }}" {{ if hugo.IsProduction }}integrity="{{ $js.Data.Integrity }}"{{ end }}></script>
         {{- end }}
     {{- end }}
+    <!--  这里只是为了打包 gallery 相关的 css 与 js 文件，实在是不知道为什么，注释了也可以打包进去  -->
+    <!--    {{ $galleryCSS := resources.Get "/css/gallery.css" | resources.Minify }}-->
+    <!--    <link rel="stylesheet" href="{{ $galleryCSS.Permalink }}" integrity="{{ $galleryCSS.Data.Integrity }}" />-->
+    <!--    {{ $lightboxJS := resources.Get "/js/lightbox-plus-jquery.js" | resources.Minify }}-->
+    <!--    <script src="{{ $lightboxJS.Permalink }}" integrity="{{ $lightboxJS.Data.Integrity }}"></script>-->
     <!-- Plausible Analytics Config -->
     {{- if not hugo.IsServer }}
     {{ if and (.Site.Params.plausible.scriptURL) (.Site.Params.plausible.dataDomain) -}}

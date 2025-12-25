@@ -1,0 +1,12 @@
+{{- $src := .Get "src" -}}
+{{- $caption := .Get "caption" -}}
+{{- with .Parent -}}
+{{- $group := .Get "group" | default "models" -}}
+{{- $width := .Get "width" | default "500px" -}}
+<a href="{{ $src }}" data-lightbox="{{ $group }}" data-title="{{ $caption }}">
+    <img loading="lazy" src="{{ $src }}" alt="{{ $caption }}" width="{{ $width }}">
+</a>
+{{- else -}}
+{{- $width := .Get "width" | default "500px" -}} <!-- 在 else 分支中也定义 -->
+<img loading="lazy" src="{{ $src }}" alt="{{ $caption }}" width="{{ $width }}">
+{{- end -}}
