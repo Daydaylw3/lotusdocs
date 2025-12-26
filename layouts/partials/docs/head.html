@@ -67,6 +67,8 @@
         {{- $style = $style | minify | fingerprint "sha384" }}
     {{- end -}}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}" {{ if hugo.IsProduction }}integrity="{{ $style.Data.Integrity }}"{{ end -}} crossorigin="anonymous">
+    {{ $tagCSS := resources.Get "/css/tags.css" | resources.Minify }}
+    <link rel="stylesheet" href="{{ $tagCSS.RelPermalink }}" crossorigin="anonymous">
     <!-- Katex CSS -->
     {{- if .Params.katex -}}
     {{- $options := dict "enableSourceMap" true }}

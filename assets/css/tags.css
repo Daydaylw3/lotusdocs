@@ -1,0 +1,31 @@
+:root {
+    --border: #444444;
+    --code-bg: #444444;
+    --radius: 4px;
+    --secondary: #cbd5e1;
+}
+
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.post-tags li {
+    display: inline-block;
+}
+
+.post-tags a {
+    border-radius: var(--radius);
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    display: block;
+    padding: 0 14px;
+    color: #cbd5e1;
+    font-size: 14px;
+    line-height: 34px;
+}
+
+.post-tags a:hover {
+    background: var(--border);
+}
